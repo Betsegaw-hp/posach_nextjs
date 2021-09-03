@@ -106,7 +106,6 @@ const UserId = ( { userData }) => {
 
             ele1.current.style.display = STYLE.FADE_out.display
             ele3.current.style.display = STYLE.FADE_out.display
-            console.log('privous')
             setNextSlideStatus(false)
             setPrevSlideStatus(true)
         }
