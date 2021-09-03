@@ -14,15 +14,15 @@ import styleslist from '../../styles/lister.module.css';
 import Link from 'next/link'
 import { Button } from '@material-ui/core';
 import BackArrow from '@material-ui/icons/ArrowBack'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 
 const STYLE = {
     FADE_out : {
-        'display': 'none'
+        'display': 'none',
     },
     FADE_in : {
-        'display': 'block'
+        'display': 'block',
     }
 }
 
@@ -31,24 +31,32 @@ const UserId = ( { userData }) => {
     const useStyles = makeStyles((theme) => ({
       root: {
         display: 'flex',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
         margin: 'auto',
         width: '90vw',
+        [theme.breakpoints.up('sm')]: {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        },
       },
       details: {
         display: 'flex',
         flexDirection: 'column',
         maxWidth: '100%',  
-        width: '50%',
+        [theme.breakpoints.up('sm')]: {
+          width: '50%',
+        },
       },
       content: {
         flex: '1 0 auto',
       },
       cover: {
         maxWidth: '100%',  
-        width: '50%',
         backgroundColor: theme.palette.primary.light,
         padding: theme.spacing(5),
+        [theme.breakpoints.up('sm')]: {
+          width: '50%',
+        },
       },
       controls: {
         display: 'flex',
@@ -59,9 +67,16 @@ const UserId = ( { userData }) => {
       },
       text: {
           margin: theme.spacing(2)
+      },
+      columns: {
+        [theme.breakpoints.down('sm')]: {
+          columns: '15ch 2',
+          gap: '2em',
+        },
       }
     }));
-
+    const [ nextSlideStatus, setNextSlideStatus] = useState(false)
+    const [ PrevSlideStatus, setPrevSlideStatus] = useState(true)
     const classes = useStyles();
     const router = useRouter()
     const { user_id } = router.query
@@ -73,21 +88,27 @@ const UserId = ( { userData }) => {
 
 
     const handleClick = (e, status) => {
+      
+     
+      
         if(status === "next") {
-            ele1.current.style = STYLE.FADE_in
-            ele3.current.style = STYLE.FADE_in
+            ele1.current.style.display = STYLE.FADE_in.display
+            ele3.current.style.display = STYLE.FADE_in.display
 
-            ele0.current.style = STYLE.FADE_out
-            ele2.current.style = STYLE.FADE_out
-            console.log('next')
+            ele0.current.style.display = STYLE.FADE_out.display
+            ele2.current.style.display = STYLE.FADE_out.display
+            setNextSlideStatus(true)
+            setPrevSlideStatus(false)
         }
-        else {
-            ele0.current.style = STYLE.FADE_in
-            ele2.current.style = STYLE.FADE_in
+        else if(status === "previous") {
+            ele0.current.style.display = STYLE.FADE_in.display
+            ele2.current.style.display = STYLE.FADE_in.display
 
-            ele1.current.style = STYLE.FADE_out
-            ele3.current.style = STYLE.FADE_out
+            ele1.current.style.display = STYLE.FADE_out.display
+            ele3.current.style.display = STYLE.FADE_out.display
             console.log('privous')
+            setNextSlideStatus(false)
+            setPrevSlideStatus(true)
         }
     }
 
@@ -96,7 +117,7 @@ const UserId = ( { userData }) => {
         <Head>
             <title>Next | { userData.name }</title>
         </Head>
-        <Button>
+      <Button>
         <Link href="/lister" passHref>
             <BackArrow />
         </Link>
@@ -110,6 +131,7 @@ const UserId = ( { userData }) => {
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>
+          <div className={classes.columns}>
           <Typography className={classes.text} component="h6" variant="h6">
             Name: { userData.name }
           </Typography>
@@ -119,8 +141,9 @@ const UserId = ( { userData }) => {
           <Typography className={classes.text} component="h6" variant="h6">
             Address: {`${ userData.address.street }, ${ userData.address.city}`}
           </Typography>
+          </div>
           <Divider className={classes.text}  variant="inset" component="hr" />
-          <div style={STYLE.FADE_in} ref={ele0}>
+          <div className={classes.columns} style={STYLE.FADE_in} ref={ele0}>
           <Typography className={classes.text} variant="subtitle1" color="textSecondary">
             Company Name: { userData.company.name }
           </Typography>
@@ -128,7 +151,7 @@ const UserId = ( { userData }) => {
             Company bs: { userData.company.bs }
           </Typography>
           </div>
-          <div style={STYLE.FADE_out} ref={ele1}>
+          <div className={classes.columns} style={STYLE.FADE_out} ref={ele1}>
           <Typography className={classes.text} variant="subtitle1" color="textSecondary">
             Address suite: { userData.address.suite }
           </Typography>    
@@ -136,8 +159,8 @@ const UserId = ( { userData }) => {
             Address zipcode: { userData.address.zipcode }
           </Typography>    
           </div>
-          <div style={STYLE.FADE_in} ref={ele2}>
           <Divider className={classes.text} variant="inset" component="hr" />
+          <div className={classes.columns} style={STYLE.FADE_in} ref={ele2}>
           <Typography className={classes.text} variant="subtitle1" color="textSecondary">
             Website: { userData.website}
           </Typography>
@@ -145,22 +168,23 @@ const UserId = ( { userData }) => {
             Phone: { userData.phone }
           </Typography>
           </div>
-          <div style={STYLE.FADE_out} ref={ele3}>
+          <div className={classes.columns} style={STYLE.FADE_out} ref={ele3}>
           <Typography className={classes.text} variant="subtitle1" color="textSecondary">
-            Address geo: 
-                       <cite> lattitude: { userData.address.geo.lat } </cite>
-                       <cite>  longitude: { userData.address.geo.lng } </cite>
+            <ul>Address geo: 
+              <li><cite> lattitude: { userData.address.geo.lat } </cite></li>
+              <li><cite>  longitude: { userData.address.geo.lng } </cite></li>
+            </ul>         
           </Typography>    
           <Typography className={classes.text} variant="subtitle1" color="textSecondary">
-            Company catchPhrase: { userData.company.catchPhrase }
+            Company catchPhrase: <q>{ userData.company.catchPhrase }</q>
           </Typography>    
           </div>
         </CardContent>
         <div className={classes.controls}>
-          <IconButton aria-label="previous" id="previous" onClick={e => handleClick(e, 'previous')}>
+          <IconButton disabled={PrevSlideStatus} aria-label="previous" id="previous" onClick={e => handleClick(e, 'previous')}>
              <SkipPreviousIcon />
           </IconButton>
-          <IconButton aria-label="next" id="next" onClick={ e => handleClick(e, 'next')}>
+          <IconButton disabled={nextSlideStatus} aria-label="next" id="next" onClick={ e => handleClick(e, 'next')}>
              <SkipNextIcon />
           </IconButton>
         </div>

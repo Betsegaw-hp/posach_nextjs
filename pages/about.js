@@ -1,4 +1,4 @@
-import Head from "next/Head"
+import Head from "next/head"
 import styles from '../styles/Home.module.css'
 import { Button } from '@material-ui/core'
 import Link from 'next/link'
@@ -10,6 +10,7 @@ const Bible = () => {
         <title> Next | About</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
     </Head>
+    <div className={styles.common_container}>
     <div>
         <h1 className={styles.title}>About </h1>
     </div>
@@ -26,6 +27,8 @@ const Bible = () => {
             Go back To Home
         </Button>
         </Link>
+
+    </div>
     </>
         
      );
