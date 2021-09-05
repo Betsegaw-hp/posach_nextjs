@@ -1,16 +1,18 @@
 import { server } from '../../config/index'
 import { useRouter } from "next/router";
-import CommentItem from "../../comps/CommentItem";
+import CommentView from "../../comps/CommentView";
 import styles from '../../styles/Home.module.css'
 
-const Comments = ({ comments }) => {
+const Comments = ({ comments, post, users  }) => {
 
     const router = useRouter()
     const { id } = router.query
 
     return ( 
         <div className={styles.common_container}>
-        <CommentItem {...comments} />
+        <CommentView    comments={comments}
+                        users={users}
+                        post={post}/>
         </div>
      );
 }
@@ -18,11 +20,13 @@ const Comments = ({ comments }) => {
 export default Comments;
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`${ server }/api/comment/${params.id}`)
-    const data = await res.json()
+    const urls = [`${ server }/api/comment/${params.id}`, `${ server }/api/posts/${params.id}`, `${ server }/api/lister`]
+
+    const res = await Promise.all(urls.map(url => fetch(url)))
+    const data = await Promise.all(res.map(e => e.json()))
 
     return {
-        props : { comments : data}
+        props : { comments : data[0] , post : data[1], users : data[2]}
     }
 }
 
@@ -31,9 +35,10 @@ export async function getStaticPaths() {
     const data = await res.json()
 
     const paths = data.map(comment => {
-        return { params : { id : comment.id.toString()}}
+        return { params : { id : comment.postId.toString()}}
     })
 
+    console.log(paths)
     return {
         paths,
         fallback: false

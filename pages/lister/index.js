@@ -27,7 +27,7 @@ const Lister = ({ users }) => {
                 <ListItem   alignItems="flex-start"
                             className={styles.list}>
                   <ListItemAvatar>
-                    <Avatar alt={ user.name } src={`https://avatars.dicebear.com/api/initials/${user.name}.svg?mood[]=happy`} />
+                    <Avatar alt={ user.name } src={`https://avatars.dicebear.com/api/initials/${user.name}.svg`} />
                   </ListItemAvatar>
                   <ListItemText
                     primary={user.username}

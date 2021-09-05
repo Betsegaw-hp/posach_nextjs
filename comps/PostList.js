@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PostList = ({ posts, users }) => {
+const PostList = ({ posts, users, comments }) => {
     const classes = useStyles();
     
     return ( 
@@ -19,6 +19,9 @@ const PostList = ({ posts, users }) => {
           {posts && posts.map((post) => (
             <Grid key={post.id} item>
               <PostItem   post={post}
+                          comment={comments && comments.filter(comment => {
+                            return comment.postId === post.id
+                          })}
                           user={ users && users.filter(user => { 
                             return user.id === post.userId})
                           }/>

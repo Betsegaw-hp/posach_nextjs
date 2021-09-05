@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -12,7 +13,6 @@ import FavoriteIcon from '@material-ui/icons/FavoriteOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentIcon from '@material-ui/icons/CommentOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,50 +38,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PostItem = (props) => {
-    const { post, user } = props
+    const { post, user, comment } = props
     const classes = useStyles();
     
     return ( 
     <>
-          <Card className={classes.root}>
-    <CardHeader
-      avatar={
-        <Avatar aria-label="recipe" className={classes.avatar}>
-          B
-        </Avatar>
-      }
-      action={
-        <IconButton aria-label="settings">
-          <MoreVertIcon />
-        </IconButton>
-      }
-      title={user[0].name}
-      // cheating , I know
-      subheader={`${Math.abs(Math.round((new Date().getMilliseconds())/60 - (Math.random() * 10)))} hours ago`}
-    />
-    <CardMedia
-      className={classes.media}
-      loading
-      image={`https://source.unsplash.com/featured/${post.title}`}
-      title={post.title}
-    />
-    <CardContent>
-      <Typography variant="body2" color="textSecondary" component="p">
-        { post.body }
-      </Typography>
-    </CardContent>
-    <CardActions disableSpacing>
-      <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
-      </IconButton>
-      <IconButton aria-label="show more">
-        <CommentIcon />
-      </IconButton>
-      <IconButton aria-label="share">
-        <ShareIcon />
-      </IconButton>
-    </CardActions>
-    </Card>
+      <Card className={classes.root}>
+        <Link href={`/lister/${user[0].id}`} passHref><a>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" 
+                    src={`https://avatars.dicebear.com/api/initials/${user[0].name}.svg`}
+                    className={classes.avatar}>
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={user[0].name}
+          // cheating , I know
+          subheader={`${Math.round(Math.random() * 10)} hours ago`}
+        /></a></Link>
+        <CardMedia
+          className={classes.media}
+          loading='true'
+          image={`https://source.unsplash.com/featured/${post.title}`}
+          title={post.title}
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            { post.body }
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <Link href={`/comments/${comment[0].id}`} passHref><a>
+          <IconButton aria-label="show more">
+            <CommentIcon />
+          </IconButton>
+          </a></Link>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
     </>
      );
 }

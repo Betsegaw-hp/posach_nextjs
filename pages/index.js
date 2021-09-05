@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import PostList from '../comps/PostList'
 
-export default function Home({ posts, users }) {
+export default function Home({ posts, users, comments }) {
 
   return (
     <>
@@ -16,7 +16,8 @@ export default function Home({ posts, users }) {
         <h1 className={styles.title}>Homepage </h1>
     </div>
       <PostList posts={posts}
-                users={users}/>
+                users={users}
+                comments={comments}/>
     </div> 
     </>
   )
@@ -24,12 +25,14 @@ export default function Home({ posts, users }) {
 
 export async function getStaticProps() {
 
-  const urls = [`${ server }/api/posts`, `${ server }/api/lister`]
+  const urls = [`${ server }/api/posts`, `${ server }/api/lister`, `${ server }/api/comment`]
   
   const res = await Promise.all(urls.map(url => fetch(url)))
   const data = await Promise.all(res.map(e => e.json()))
 
   return {
-    props : { posts : data[0], users : data[1]}
+    props : { posts : data[0], users : data[1], comments : data[2]}
   }
 }
+
+
