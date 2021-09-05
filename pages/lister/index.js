@@ -1,4 +1,5 @@
 import React from 'react'
+import { server } from '../../config/index'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -60,7 +61,7 @@ export default Lister;
 
 
 export async function getStaticProps() {
-    const res = await fetch('http://jsonplaceholder.typicode.com/users')
+    const res = await fetch(`${server}/api/lister`)
     const data = await res.json()
 
     return {

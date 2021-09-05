@@ -1,7 +1,10 @@
+import { server } from '../config/index'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import PostList from '../comps/PostList'
 
-export default function Home() {
+export default function Home({ posts, users }) {
+
   return (
     <>
     <Head>
@@ -12,38 +15,21 @@ export default function Home() {
     <div>
         <h1 className={styles.title}>Homepage </h1>
     </div>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoimlorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-      <p className={styles.text}>lorem epsoim lorem epsoim lorem epsoim lorem epsoim lorem epsoim</p>
-
+      <PostList posts={posts}
+                users={users}/>
     </div> 
     </>
   )
+}
+
+export async function getStaticProps() {
+
+  const urls = [`${ server }/api/posts`, `${ server }/api/lister`]
+  
+  const res = await Promise.all(urls.map(url => fetch(url)))
+  const data = await Promise.all(res.map(e => e.json()))
+
+  return {
+    props : { posts : data[0], users : data[1]}
+  }
 }

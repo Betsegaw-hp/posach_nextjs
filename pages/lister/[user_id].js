@@ -1,3 +1,4 @@
+import { server } from '../../config/index'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -197,7 +198,7 @@ const UserId = ( { userData }) => {
 export default UserId;
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`http://jsonplaceholder.typicode.com/users/${params.user_id}`)
+    const res = await fetch(`${server}/api/lister/${params.user_id}`)
     const data =  await res.json()
 
     return {
@@ -206,7 +207,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch('http://jsonplaceholder.typicode.com/users')
+    const res = await fetch(`${server}/api/lister`)
     const data = await res.json()
 
   const paths = data.map(user => {
