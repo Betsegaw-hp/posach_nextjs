@@ -20,7 +20,9 @@ const Comments = ({ comments, post, users  }) => {
 export default Comments;
 
 export async function getStaticProps({ params }) {
-    const urls = [`${ server }/api/comment/${params.id}`, `${ server }/api/posts/${params.id}`, `${ server }/api/lister`]
+    const urls =    [   `http://jsonplaceholder.typicode.com/posts/${params.id}/comments`,
+                        `http://jsonplaceholder.typicode.com/posts/${params.id}`,
+                        `http://jsonplaceholder.typicode.com/users/${params.id}`]
 
     const res = await Promise.all(urls.map(url => fetch(url)))
     const data = await Promise.all(res.map(e => e.json()))
@@ -31,7 +33,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(`${ server }/api/comment`)
+    const res = await fetch('https://jsonplaceholder.typicode.com/comments')
     const data = await res.json()
 
     const paths = data.map(comment => {

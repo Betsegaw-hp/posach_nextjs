@@ -197,7 +197,7 @@ const UserId = ( { userData }) => {
 export default UserId;
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`${server}/api/lister/${params.user_id}`)
+    const res = await fetch(`http://jsonplaceholder.typicode.com/users/${params.user_id}`)
     const data =  await res.json()
 
     return {
@@ -206,7 +206,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(`${server}/api/lister`)
+    const res = await fetch('http://jsonplaceholder.typicode.com/users')
     const data = await res.json()
 
   const paths = data.map(user => {

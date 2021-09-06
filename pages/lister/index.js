@@ -61,7 +61,7 @@ export default Lister;
 
 
 export async function getStaticProps() {
-    const res = await fetch(`${server}/api/lister`)
+    const res = await fetch('http://jsonplaceholder.typicode.com/users')
     const data = await res.json()
 
     return {

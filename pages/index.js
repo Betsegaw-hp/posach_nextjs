@@ -25,7 +25,9 @@ export default function Home({ posts, users, comments }) {
 
 export async function getStaticProps() {
 
-  const urls = [`${ server }/api/posts`, `${ server }/api/lister`, `${ server }/api/comment`]
+  const urls = ['http://jsonplaceholder.typicode.com/posts',
+                'http://jsonplaceholder.typicode.com/users', 
+                'https://jsonplaceholder.typicode.com/comments']
   
   const res = await Promise.all(urls.map(url => fetch(url)))
   const data = await Promise.all(res.map(e => e.json()))
