@@ -69,7 +69,7 @@ const PostItem = (props) => {
         /></a></Link>
         <CardMedia
           className={classes.media}
-          loading='true'
+          loading="lazy"
           image={`https://source.unsplash.com/featured/${post.title}`}
           title={post.title}
         />
