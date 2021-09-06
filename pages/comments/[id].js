@@ -22,7 +22,7 @@ export default Comments;
 export async function getStaticProps({ params }) {
     const urls =    [   `http://jsonplaceholder.typicode.com/posts/${params.id}/comments`,
                         `http://jsonplaceholder.typicode.com/posts/${params.id}`,
-                        `http://jsonplaceholder.typicode.com/users/${params.id}`]
+                        `http://jsonplaceholder.typicode.com/users`]
 
     const res = await Promise.all(urls.map(url => fetch(url)))
     const data = await Promise.all(res.map(e => e.json()))
