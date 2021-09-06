@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -37,10 +38,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const PostItem = (props) => {
-    const { post, user, comment } = props
-    const classes = useStyles();
-    
+  const { post, user, comment } = props
+  const [IconColor, setIconColor] = useState('inherit')
+  const classes = useStyles();
+  
+  const handleOnClick = (e) => {
+    IconColor === 'inherit' ? setIconColor('secondary') : setIconColor('inherit')
+  }
     return ( 
     <>
       <Card className={classes.root}>
@@ -73,8 +79,9 @@ const PostItem = (props) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="add to favorites"
+                      onClick={handleOnClick}>
+            <FavoriteIcon color={IconColor}/>
           </IconButton>
           <Link href={`/comments/${comment[0].id}`} passHref><a>
           <IconButton aria-label="show more">
