@@ -10,6 +10,7 @@ export default function Home({ posts, users, comments }) {
     <Head>
       <title>Home</title>
       <meta name="keyword" content="next app"></meta>
+      <script data-ad-client="ca-pub-1355967539894036" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </Head>
     <div className={styles.common_container}>
     <div>
