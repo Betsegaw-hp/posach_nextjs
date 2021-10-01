@@ -2,7 +2,6 @@ import { server } from '../config/index'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import PostList from '../comps/PostList'
-import Script from 'next/script'
 
 export default function Home({ posts, users, comments }) {
 
@@ -11,8 +10,8 @@ export default function Home({ posts, users, comments }) {
     <Head>
       <title>Home</title>
       <meta name="keyword" content="next app"></meta>
+      <script data-ad-client="ca-pub-1355967539894036" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </Head>
-    <Script data-ad-client="ca-pub-1355967539894036" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></Script>
     <div className={styles.common_container}>
     <div>
         <h1 className={styles.title}>Homepage </h1>
