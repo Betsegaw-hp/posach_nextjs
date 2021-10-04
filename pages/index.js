@@ -21,16 +21,16 @@ export default function Home({ posts, users, comments }) {
                 users={users}
                 comments={comments}/>
     </div> 
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){window.dataLayer.push(arguments)}
-        const js = `js`;
-        const config = `config`;
-        const code = `G-H9XCS33V2Q`;
-        gtag(js, new Date());
+{//       <script>
+//         window.dataLayer = window.dataLayer || [];
+//         function gtag(){window.dataLayer.push(arguments)}
+//         const js = `js`;
+//         const config = `config`;
+//         const code = `G-H9XCS33V2Q`;
+//         gtag(js, new Date());
 
-        gtag(config, code);
-      </script>
+//         gtag(config, code);
+//       </script>}
     </>
   )
 }
