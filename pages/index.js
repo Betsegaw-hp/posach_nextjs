@@ -23,7 +23,7 @@ export default function Home({ posts, users, comments }) {
     </div> 
       <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments)}
+        function gtag(){window.dataLayer.push(arguments)}
         const js = `js`;
         const config = `config`;
         const code = `G-H9XCS33V2Q`;
