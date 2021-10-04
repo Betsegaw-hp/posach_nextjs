@@ -11,7 +11,6 @@ export default function Home({ posts, users, comments }) {
       <title>Home</title>
       <meta name="keyword" content="next app"></meta>
       <script data-ad-client="ca-pub-1355967539894036" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-H9XCS33V2Q"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
