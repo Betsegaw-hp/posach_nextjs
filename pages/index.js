@@ -12,6 +12,15 @@ export default function Home({ posts, users, comments }) {
       <meta name="keyword" content="next app"></meta>
       <script data-ad-client="ca-pub-1355967539894036" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-H9XCS33V2Q"></script>
+    </Head>
+    <div className={styles.common_container}>
+    <div>
+        <h1 className={styles.title}>Homepage </h1>
+    </div>
+      <PostList posts={posts}
+                users={users}
+                comments={comments}/>
+    </div> 
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments)}
@@ -22,15 +31,6 @@ export default function Home({ posts, users, comments }) {
 
         gtag(config, code);
       </script>
-    </Head>
-    <div className={styles.common_container}>
-    <div>
-        <h1 className={styles.title}>Homepage </h1>
-    </div>
-      <PostList posts={posts}
-                users={users}
-                comments={comments}/>
-    </div> 
     </>
   )
 }
