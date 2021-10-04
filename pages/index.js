@@ -20,7 +20,7 @@ export default function Home({ posts, users, comments }) {
         const code = `G-H9XCS33V2Q`;
         gtag(js, new Date());
 
-        gtag(config, code});
+        gtag(config, code);
       </script>
     </Head>
     <div className={styles.common_container}>
